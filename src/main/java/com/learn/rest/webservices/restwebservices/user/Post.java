@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Post {
 	
@@ -14,8 +16,16 @@ public class Post {
 	private Integer id;
 	private String post;
 	
+	//for mapping the user in the post, we're giving fetch mode as lazy so that 
+	//it'll not fetch from both sides
 	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonIgnore
 	private User user;
+	
+	public Post() {
+		super();
+		
+	}
 	public Post(Integer id, String post, User user) {
 		super();
 		this.id = id;

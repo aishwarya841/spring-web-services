@@ -1,10 +1,12 @@
 package com.learn.rest.webservices.restwebservices.user;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
@@ -20,6 +22,11 @@ public class User {
 	private Date birthdate;
 	@Size(min=2)  //validation
 	private String name;
+	
+	
+	//for mapping the post into the user
+	@OneToMany(mappedBy="user")
+	private List<Post> posts;
 	
 	public User() {
 		super();
@@ -42,17 +49,23 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", birthdate=" + birthdate + ", getId()=" + getId()
-				+ ", getName()=" + getName() + ", getBirthdate()=" + getBirthdate() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
-	}
 	public Date getBirthdate() {
 		return birthdate;
 	}
 	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
+	public List<Post> getPosts() {
+		return posts;
+	}
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", birthdate=" + birthdate + ", name=" + name + ", posts=" + posts + "]";
+	}
+	
+	
 	
 }
